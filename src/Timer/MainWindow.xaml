@@ -24,6 +24,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <CheckBox Content="Always Visible"
+                  Margin="0,5,0,0"
                   HorizontalAlignment="Center"
                   IsChecked="{Binding AlwaysVisible}"/>
         <TextBlock Text="{Binding CurrentTime, StringFormat=mm\\:ss}"
@@ -33,19 +34,20 @@
                    FontSize="100"
                    FontFamily="Corrier"
                    Margin="10" />
-        <StackPanel Margin="10"
+        <StackPanel Margin="0,0,0,10"
                     Grid.Row="2"
                     Orientation="Horizontal"
                     HorizontalAlignment="Center">  
             <ComboBox 
                 HorizontalAlignment="Center"
-                Margin="0,0,10,0"
+                Margin="0,0,5,0"
                 SelectedValue="{Binding SelectedValue}"
                 ItemsSource="{Binding Values}"
                 VerticalAlignment="Center"
                 IsEnabled="{Binding IsRunning, Converter={StaticResource InverseBooleanConverter}}"/>
+            <TextBlock Text="minutes" VerticalAlignment="Center" Margin="0,0,10,0" />
             <Button Content="Start"
-                Margin="0,0,10,0"
+                    Margin="0,0,10,0"
                     Command="{Binding StartCommand}" />
             <Button Content="Stop"
                     Command="{Binding StopCommand}" />
