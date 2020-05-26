@@ -19,42 +19,42 @@ namespace Timer.ViewModels
             StartCommand = new RelayCommand(_ => Start(), _ => !IsRunning);
             StopCommand = new RelayCommand(_ => Stop(), _ => IsRunning);
 
-            Values = new List<int>
-            {
-                1, 5, 10, 15, 20, 25, 30
-            };
-
-            _selectedValue = 15;
-            _isRunning = false;
-            _alwaysVisible = true;
+            Values = new List<int> { 1, 5, 10, 15, 20, 25, 30 };
+            SelectedValue = 15;
+            IsRunning = false;
+            AlwaysVisible = true;
         }
 
         private TimeSpan _currentTime;
         public TimeSpan CurrentTime
         {
             get => _currentTime;
-            set => SetField(ref _currentTime, value, nameof(CurrentTime));
+            set => SetField(ref _currentTime, value);
         }
 
         private int _selectedValue;
         public int SelectedValue
         {
             get => _selectedValue;
-            set => SetField(ref _selectedValue, value, nameof(SelectedValue));
+            set
+            {
+                SetField(ref _selectedValue, value);
+                CurrentTime = TimeSpan.FromMinutes(value);
+            }
         }
 
         private bool _isRunning;
         public bool IsRunning
         {
             get => _isRunning;
-            set => SetField(ref _isRunning, value, nameof(IsRunning));
+            set => SetField(ref _isRunning, value);
         }
 
         private bool _alwaysVisible;
         public bool AlwaysVisible
         {
             get => _alwaysVisible;
-            set => SetField(ref _alwaysVisible, value, nameof(AlwaysVisible));
+            set => SetField(ref _alwaysVisible, value);
         }
 
         public ICollection<int> Values { get; set; }
@@ -77,7 +77,6 @@ namespace Timer.ViewModels
 
         private void Start()
         {
-            CurrentTime = TimeSpan.FromMinutes(SelectedValue);
             _dispatcherTimer.Start();
             IsRunning = true;
         }
