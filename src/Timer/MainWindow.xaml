@@ -39,7 +39,6 @@
                     HorizontalAlignment="Center">  
             <ComboBox 
                 HorizontalAlignment="Center"
-                SelectedIndex="0"
                 Margin="0,0,10,0"
                 SelectedValue="{Binding SelectedValue}"
                 ItemsSource="{Binding Values}"

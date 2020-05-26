@@ -24,9 +24,9 @@ namespace Timer.ViewModels
                 1, 5, 10, 15, 20, 25, 30
             };
 
-            SelectedValue = 15;
-            IsRunning = false;
-            AlwaysVisible = true;
+            _selectedValue = 15;
+            _isRunning = false;
+            _alwaysVisible = true;
         }
 
         private TimeSpan _currentTime;
@@ -51,7 +51,6 @@ namespace Timer.ViewModels
         }
 
         private bool _alwaysVisible;
-
         public bool AlwaysVisible
         {
             get => _alwaysVisible;
