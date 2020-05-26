@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:converters="clr-namespace:Timer.Converters"
         mc:Ignorable="d"
-        Title="Timer"
+        Title="{Binding WindowTitle}"
         SizeToContent="WidthAndHeight"
         ResizeMode="NoResize"
         Topmost="{Binding AlwaysVisible}"

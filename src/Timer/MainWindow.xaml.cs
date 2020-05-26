@@ -1,5 +1,4 @@
-﻿using Timer.ViewModels;
-using System.Windows;
+﻿using System.Windows;
 
 namespace Timer
 {

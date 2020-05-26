@@ -1,6 +1,7 @@
 ﻿using Timer.Commands;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Windows.Input;
 using System.Windows.Threading;
 
@@ -23,7 +24,11 @@ namespace Timer.ViewModels
             SelectedValue = 15;
             IsRunning = false;
             AlwaysVisible = true;
+
+            WindowTitle = $"Timer - {GetVerion()}";
         }
+
+        public string WindowTitle { get; }
 
         private TimeSpan _currentTime;
         public TimeSpan CurrentTime
@@ -85,6 +90,11 @@ namespace Timer.ViewModels
         {
             _dispatcherTimer.Stop();
             IsRunning = false;
+        }
+
+        private string GetVerion()
+        {
+            return Assembly.GetExecutingAssembly().GetName().Version.ToString();
         }
     }
 }
