@@ -19,6 +19,7 @@ namespace Timer.ViewModels
 
             StartCommand = new RelayCommand(_ => Start(), _ => !IsRunning);
             StopCommand = new RelayCommand(_ => Stop(), _ => IsRunning);
+            ResetCommand = new RelayCommand(_ => Reset());
 
             Values = new List<int> { 1, 5, 10, 15, 20, 25, 30 };
             SelectedValue = 15;
@@ -34,7 +35,11 @@ namespace Timer.ViewModels
         public TimeSpan CurrentTime
         {
             get => _currentTime;
-            set => SetField(ref _currentTime, value);
+            set
+            {
+                SetField(ref _currentTime, value);
+                OnPropertyChanged(nameof(CanReset));
+            }
         }
 
         private int _selectedValue;
@@ -62,11 +67,15 @@ namespace Timer.ViewModels
             set => SetField(ref _alwaysVisible, value);
         }
 
-        public ICollection<int> Values { get; set; }
+        public bool CanReset => Math.Abs(CurrentTime.TotalMinutes - SelectedValue) > 0;
 
-        public ICommand StartCommand { get; set; }
+        public ICollection<int> Values { get; }
 
-        public ICommand StopCommand { get; set; }
+        public ICommand StartCommand { get; }
+
+        public ICommand StopCommand { get; }
+
+        public ICommand ResetCommand { get; }
 
         private void OnDispatcherTimerTick(object sender, EventArgs e)
         {
@@ -90,6 +99,11 @@ namespace Timer.ViewModels
         {
             _dispatcherTimer.Stop();
             IsRunning = false;
+        }
+
+        private void Reset()
+        {
+            CurrentTime = TimeSpan.FromMinutes(SelectedValue);
         }
 
         private string GetVerion()
