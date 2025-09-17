@@ -1,7 +1,5 @@
 # Timer
 
-Simple timer for Windows.
-
 <p align="center">
-  ![Screenshot](https://github.com/vmrocha/timer/blob/main/assets/screenshot.png?raw=true)
+  <img src="https://github.com/vmrocha/timer/blob/main/assets/screenshot.png" alt="Time Screenshot" width="439" height="378" />
 </p>
