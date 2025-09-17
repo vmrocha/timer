@@ -2,11 +2,165 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Style TargetType="Button">
-        <Setter Property="Padding" Value="5" />
+        <Setter Property="Padding" Value="10,6" />
+        <Setter Property="Background" Value="#FF2196F3" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect Color="#33000000" BlurRadius="4" ShadowDepth="1" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}"
+                            SnapsToDevicePixels="True">
+                        <ContentPresenter HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  Margin="{TemplateBinding Padding}"
+                                  RecognizesAccessKey="True"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Cursor" Value="Hand" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#FF1976D2" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="#FF1565C0" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="#FFB0BEC5" />
+                <Setter Property="Foreground" Value="#FF757575" />
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
     <Style TargetType="ComboBox">
-        <Setter Property="Padding" Value="5" />
+        <Setter Property="Padding" Value="10,6" />
+        <Setter Property="Background" Value="#FF2196F3" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect Color="#33000000" BlurRadius="4" ShadowDepth="1" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ComboBox">
+                    <Grid>
+                        <Border x:Name="Border"
+                                Background="{TemplateBinding Background}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                SnapsToDevicePixels="True">
+                            <DockPanel>
+                                <ContentPresenter x:Name="ContentSite"
+                                                  Content="{TemplateBinding SelectionBoxItem}"
+                                                  ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                                  VerticalAlignment="Center"
+                                                  Margin="{TemplateBinding Padding}" />
+                                <ToggleButton DockPanel.Dock="Right"
+                                              IsChecked="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}}"
+                                              Focusable="False"
+                                              ClickMode="Press"
+                                              Background="Transparent"
+                                              BorderThickness="0">
+                                    <Path Width="12" Height="12" Stretch="Uniform"
+                                          Data="M 0 0 L 4 4 L 8 0 Z"
+                                          Fill="White" Margin="4"/>
+                                </ToggleButton>
+                            </DockPanel>
+                        </Border>
+                        <Popup x:Name="PART_Popup"
+                               Placement="Bottom"
+                               IsOpen="{TemplateBinding IsDropDownOpen}"
+                               AllowsTransparency="True"
+                               Focusable="False"
+                               PopupAnimation="Slide">
+                            <Border Background="#FF2196F3"
+                                    x:Name="DropDownBorder"
+                                    SnapsToDevicePixels="True"
+                                    Padding="5"
+                                    Effect="{TemplateBinding Effect}">
+                                <ScrollViewer Margin="0" SnapsToDevicePixels="True">
+                                    <ItemsPresenter />
+                                </ScrollViewer>
+                            </Border>
+                        </Popup>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Border" Property="Background" Value="#FF1976D2" />
+                            <Setter TargetName="DropDownBorder" Property="Background" Value="#FF1976D2" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Background" Value="#FFB0BEC5" />
+                            <Setter Property="Foreground" Value="#FF757575" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Cursor" Value="Hand" />
+    </Style>
+
+    <Style TargetType="CheckBox">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="FontFamily" Value="Segoe UI"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="CheckBox">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Border x:Name="checkBoxBorder" 
+                                Width="20" 
+                                Height="20" 
+                                Background="Transparent"
+                                BorderBrush="White"
+                                BorderThickness="2"
+                                CornerRadius="2"
+                                Margin="0,0,8,0">
+                            <Path x:Name="checkMark"
+                                  Data="M 0,4 L 3,8 L 8,0"
+                                  Stroke="White"
+                                  StrokeThickness="2"
+                                  Visibility="Collapsed"
+                                  VerticalAlignment="Center"
+                                  HorizontalAlignment="Center"/>
+                        </Border>
+                        <ContentPresenter Grid.Column="1" 
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Left"
+                                        RecognizesAccessKey="True"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="checkBoxBorder" Property="Background" Value="#FF2196F3"/>
+                            <Setter TargetName="checkBoxBorder" Property="BorderBrush" Value="#FF2196F3"/>
+                            <Setter TargetName="checkMark" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="checkBoxBorder" Property="BorderBrush" Value="#FF2196F3"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect Color="#33000000" BlurRadius="4" ShadowDepth="1"/>
+            </Setter.Value>
+        </Setter>
     </Style>
 
 </ResourceDictionary>

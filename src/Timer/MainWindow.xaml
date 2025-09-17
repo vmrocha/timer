@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="{Binding WindowTitle}"
         SizeToContent="WidthAndHeight"
-        ResizeMode="NoResize"
+        ResizeMode="CanMinimize"
         Topmost="{Binding AlwaysVisible}"
         Icon="Assets/Icon.ico"
         WindowStartupLocation="CenterScreen"
@@ -18,13 +18,20 @@
     </Window.Resources>
 
     <Grid>
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#FF2196F3" Offset="0.0"/>
+                <GradientStop Color="#FFBBDEFB" Offset="1.0"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <CheckBox Content="Always Visible"
-                  Margin="0,5,0,0"
+                  Margin="10,10,10,0"
+                  Padding="0,2,0,2"
                   HorizontalAlignment="Center"
                   IsChecked="{Binding AlwaysVisible}"/>
         <TextBlock Text="{Binding CurrentTime, StringFormat=mm\\:ss}"
@@ -32,9 +39,18 @@
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    FontSize="100"
-                   FontFamily="Corrier"
-                   Margin="10" />
-        <StackPanel Margin="0,0,0,10"
+                   FontFamily="Segoe UI"
+                   FontWeight="Bold"
+                   Foreground="White"
+                   Margin="5">
+            <TextBlock.Effect>
+                <DropShadowEffect Color="#33000000" 
+                                 BlurRadius="4" 
+                                 ShadowDepth="2" 
+                                 Opacity="0.6"/>
+            </TextBlock.Effect>
+        </TextBlock>
+        <StackPanel Margin="10"
                     Grid.Row="2"
                     Orientation="Horizontal"
                     HorizontalAlignment="Center">  
@@ -44,6 +60,7 @@
                 SelectedValue="{Binding SelectedValue}"
                 ItemsSource="{Binding Values}"
                 VerticalAlignment="Center"
+                ItemStringFormat="{}{0:00} minutes"
                 IsEnabled="{Binding IsRunning, Converter={StaticResource InverseBooleanConverter}}"/>
             <TextBlock Text="minutes" VerticalAlignment="Center" Margin="0,0,10,0" />
             <Button Content="Start"
